@@ -52,6 +52,7 @@ angular.module("footyNoNetApp", ["ionic"])
     })
 
     .state('app', {
+      abstract: true,
       url: "/app",
       templateUrl: "app/layout/menu-layout.html"
     })
