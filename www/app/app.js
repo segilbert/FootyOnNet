@@ -1,4 +1,4 @@
-angular.module("footyNoNetApp", ["ionic"])
+angular.module("footyOnNetApp", ["ionic"])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
