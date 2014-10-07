@@ -10,6 +10,8 @@
 
 		vm.teamId = Number($stateParams.id);
 		
+        console.log("team id - ", vm.teamId);
+
 		var data = footyApi.getLeagueData();
 
 		// Query data
@@ -61,7 +63,6 @@
                 vm.following = !vm.following;
             }
         };
-
 
         function isTeamInGame(item){
             return item.team1Id === vm.teamId || item.team2Id === vm.teamId;
