@@ -3,9 +3,9 @@
 
 	angular.module('footyOnNetApp')
 			.controller('TeamDetailController', 
-						['$stateParams', 'footyApi', TeamDetailController]);
+						['$stateParams', 'footyApi', '$ionicPopup', TeamDetailController]);
 
-	function TeamDetailController($stateParams, footyApi){
+	function TeamDetailController($stateParams, footyApi, $ionicPopup){
 		var vm = this;
 
 		vm.teamId = Number($stateParams.id);
