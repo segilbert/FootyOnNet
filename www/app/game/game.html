@@ -14,7 +14,19 @@
 			</div>	
 		</div>
 
-		<div class="card"></div>
+		<div class="card">
+			<div class="item item-divider item-dark">
+				Away Team
+			</div>
+			<a class="item item-text-wrap item-icon-right" ng-href="#/app/teams/{{vm.game.team2Id}}" >
+				{{vm.game.team2}}
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</a>
+			<div class="item item-divider">
+				Score: {{vm.game.team2Score}}
+			</div>	
+		</div>
+
 		<div class="card"></div>
 
 	</ion-content>	
