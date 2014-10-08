@@ -7,7 +7,7 @@
         var currentLeagueId = "";
 
         function getLeagues(callback){
-        	 mimicSupportForCrossSiteDomain();
+        	 //mimicSupportForCrossSiteDomain();
              $http.get("http://elite-schedule.net/api/leaguedata")
              	  .success(function(data){
              	  		callback(data);
@@ -15,7 +15,7 @@
         }
 
         function getLeagueData(callback){
-        	mimicSupportForCrossSiteDomain();
+        	//mimicSupportForCrossSiteDomain();
             $http.get("http://elite-schedule.net/api/leaguedata/" + currentLeagueId)
                     .success(function(data, status) {
                         console.log("Received schedule data via HTTP.", data, status);
