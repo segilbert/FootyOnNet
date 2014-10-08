@@ -7,11 +7,12 @@
 	function LeaguesController($state, footyApi){
 		var vm = this;
 
-		var leagues = footyApi.getLeagues();
-		vm.leagues = leagues;
+		footyApi.getLeagues(function(data){
+			vm.leagues = leagues;	
+		});
 
 		vm.selectLeague = function(leagueId){
-			// TODO: select correct league
+			footyApi.setLeagueId(leagueId);
 			$state.go("app.teams");
 		}
 	};

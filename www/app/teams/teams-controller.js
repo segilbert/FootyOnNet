@@ -7,8 +7,10 @@
 	function TeamsController(footyApi){
 		var vm = this;
 
-		var data = footyApi.getLeagueData();
-		vm.teams = data.teams;
+		footyApi.getLeagueData(function(data){
+			vm.teams = data.teams;	
+		});
+		
 	};
 
 })();
