@@ -9,7 +9,7 @@
 
 		footyApi.getLeagueData(function(data){
 			vm.teams = data.teams;	
-			console.log("teams controller teams", vm.teams);			
+			console.log("teams controller teams", data.teams);			
 		});
 		
 	};

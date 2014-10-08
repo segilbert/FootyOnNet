@@ -7,16 +7,14 @@
         var currentLeagueId = "";
 
         function getLeagues(callback){
-        	 //mimicSupportForCrossSiteDomain();
-             $http.get("http://elite-schedule.net/api/leaguedata")
+        	 $http.get("http://elite-schedule.net/api/leaguedata")
              	  .success(function(data){
              	  		callback(data);
              	  });
         }
 
         function getLeagueData(callback){
-        	//mimicSupportForCrossSiteDomain();
-            $http.get("http://elite-schedule.net/api/leaguedata/" + currentLeagueId)
+        	$http.get("http://elite-schedule.net/api/leaguedata/" + currentLeagueId)
                     .success(function(data, status) {
                         console.log("Received schedule data via HTTP.", data, status);
                         callback(data);
@@ -29,12 +27,7 @@
         function setLeagueId(leagueId){
             currentLeagueId = leagueId;
         };
-
-        function mimicSupportForCrossSiteDomain(){
-        	//delete $http.defaults.headers.common['X-Requested-With'];
-        	$http.defaults.headers.common['Access-Control-Allow-Origin'];
-        };
-
+        
         return {
             getLeagues: getLeagues,
             getLeagueData: getLeagueData,

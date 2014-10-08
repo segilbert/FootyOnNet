@@ -8,7 +8,7 @@
 		var vm = this;
 
 		footyApi.getLeagues(function(data){
-			vm.leagues = leagues;	
+			vm.leagues = data;	
 		});
 
 		vm.selectLeague = function(leagueId){

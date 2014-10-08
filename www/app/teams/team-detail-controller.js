@@ -11,7 +11,7 @@
 		vm.teamId = Number($stateParams.id);
 		
         console.log("team id - ", vm.teamId);
-
+        
 		var data = footyApi.getLeagueData();
 
 		// Query data
