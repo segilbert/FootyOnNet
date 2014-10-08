@@ -4,7 +4,7 @@
     angular.module('footyOnNetApp').factory('footyApi', ['$http', footyApi]);
 
     function footyApi($http) {
-        var currentLeagueId;
+        var currentLeagueId = "";
 
         function getLeagues(callback){
         	 mimicSupportForCrossSiteDomain();
@@ -31,7 +31,8 @@
         };
 
         function mimicSupportForCrossSiteDomain(){
-        	delete $http.defaults.headers.common['X-Requested-With'];
+        	//delete $http.defaults.headers.common['X-Requested-With'];
+        	$http.defaults.headers.common['Access-Control-Allow-Origin'];
         };
 
         return {
