@@ -10,41 +10,39 @@
 
 		vm.teamId = Number($stateParams.id);
 		
-        console.log("team id - ", vm.teamId);
-        
-		var data = footyApi.getLeagueData();
+        footyApi.getLeagueData().then(function(data){
+            // Query data
+             var team = _.chain(data.teams)
+                        .flatten("divisionTeams")
+                        .find({ "id": vm.teamId })
+                        .value();
 
-		// Query data
-		 var team = _.chain(data.teams)
-                    .flatten("divisionTeams")
-                    .find({ "id": vm.teamId })
-                    .value();
+            vm.teamName = team.name;
 
-        vm.teamName = team.name;
+            vm.games = _.chain(data.games)
+                        .filter(isTeamInGame)
+                        .map(function (item) {
+                            var isTeam1 = (item.team1Id === vm.teamId ? true : false);
+                            var opponentName = isTeam1 ? item.team2 : item.team1;
+                            var scoreDisplay = getScoreDisplay(isTeam1, item.team1Score, item.team2Score);
+                            return {
+                                gameId: item.id,
+                                opponent: opponentName,
+                                time: item.time,
+                                location: item.location,
+                                locationUrl: item.locationUrl,
+                                scoreDisplay: scoreDisplay,
+                                homeAway: (isTeam1 ? "vs." : "at")
+                            };
+                        })
+                        .value();
 
-        vm.games = _.chain(data.games)
-                    .filter(isTeamInGame)
-                    .map(function (item) {
-                        var isTeam1 = (item.team1Id === vm.teamId ? true : false);
-                        var opponentName = isTeam1 ? item.team2 : item.team1;
-                        var scoreDisplay = getScoreDisplay(isTeam1, item.team1Score, item.team2Score);
-                        return {
-                            gameId: item.id,
-                            opponent: opponentName,
-                            time: item.time,
-                            location: item.location,
-                            locationUrl: item.locationUrl,
-                            scoreDisplay: scoreDisplay,
-                            homeAway: (isTeam1 ? "vs." : "at")
-                        };
-                    })
-                    .value();
-
-        vm.teamStanding = _.chain(data.standings)
-                           .flatten("divisionStandings")
-                           .find({ "teamId": vm.teamId })
-                           .value();
-
+            vm.teamStanding = _.chain(data.standings)
+                               .flatten("divisionStandings")
+                               .find({ "teamId": vm.teamId })
+                               .value();
+        });
+		
         vm.following = false;
 
         vm.toggleFollow = function(){

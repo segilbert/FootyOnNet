@@ -9,10 +9,10 @@
 		var vm = this;
 
 		var gameId = Number($stateParams.id);
-		var data = footyApi.getLeagueData();
-
-		vm.game = _.find(data.games, { "id": gameId });
-
+		footyApi.getLeagueData().then(function(data){
+			vm.game = _.find(data.games, { "id": gameId });	
+		});
+		
 	};
 
 })();

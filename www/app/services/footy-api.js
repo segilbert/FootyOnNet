@@ -1,27 +1,46 @@
 (function () {
     'use strict';
 
-    angular.module('footyOnNetApp').factory('footyApi', ['$http', footyApi]);
+    angular.module('footyOnNetApp')
+            .factory('footyApi', 
+                ['$http', '$q', '$ionicLoading', footyApi]);
 
-    function footyApi($http) {
+    function footyApi($http, $q, $ionicLoading) {
         var currentLeagueId = "";
 
-        function getLeagues(callback){
+        function getLeagues(){
+            var deferred = $q.defer();
+
         	 $http.get("http://elite-schedule.net/api/leaguedata")
-             	  .success(function(data){
-             	  		callback(data);
-             	  });
+             	    .success(function(data){
+                        deferred.resolve(data);
+             	    })
+                    .error(function() {
+                        console.log("Error while making HTTP call.");                        
+                        deferred.reject();  
+                    });
+
+            return deferred.promise;
         }
 
-        function getLeagueData(callback){
+        function getLeagueData(){
+            var deferred = $q.defer();
+
+            $ionicLoading.show({ template: "Loading..." })
+
         	$http.get("http://elite-schedule.net/api/leaguedata/" + currentLeagueId)
                     .success(function(data, status) {
                         console.log("Received schedule data via HTTP.", data, status);
-                        callback(data);
+                        $ionicLoading.hide();                        
+                        deferred.resolve(data);
                     })
                     .error(function() {
                         console.log("Error while making HTTP call.");                        
+                        $ionicLoading.hide();
+                        deferred.reject();  
                     });
+
+            return deferred.promise;
         };
 
         function setLeagueId(leagueId){

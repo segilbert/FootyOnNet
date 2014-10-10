@@ -7,8 +7,10 @@
 	function LocationsController(footyApi){
 		var vm = this;
 
-		var data = footyApi.getLeagueData();
-		vm.locations = data.locations;
+		footyApi.getLeagueData().then(function(data){
+			vm.locations = data.locations;	
+		});
+		
 	};
 
 })();

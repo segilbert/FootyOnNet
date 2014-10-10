@@ -7,7 +7,7 @@
 	function LeaguesController($state, footyApi){
 		var vm = this;
 
-		footyApi.getLeagues(function(data){
+		footyApi.getLeagues().then(function(data){
 			vm.leagues = data;	
 		});
 

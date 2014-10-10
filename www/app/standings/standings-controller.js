@@ -7,8 +7,10 @@
 	function StandingsController(footyApi){
 		var vm = this;
 
-		var data = footyApi.getLeagueData();
-		vm.standings = data.standings;
+		footyApi.getLeagueData().then(function(data){
+			vm.standings = data.standings;	
+		});
+		
 	};
 
 })();
