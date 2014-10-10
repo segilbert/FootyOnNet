@@ -1,6 +1,6 @@
-angular.module("footyOnNetApp", ["ionic"])
+angular.module("footyOnNetApp", ["ionic", "angular-data.DSCacheFactory"])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, DSCacheFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -9,8 +9,14 @@ angular.module("footyOnNetApp", ["ionic"])
     }
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.styleDefault();      
     }
+
+    DSCacheFactory("leagueDataCache", { storageMode: "localStorage", maxAge: 5000, deleteOnExpire: "aggressive" });
+    DSCacheFactory("leaguesCache", { storageMode: "localStorage", maxAge: 5000, deleteOnExpire: "aggressive" });
+    DSCacheFactory("myTeamsCache", { storageMode: "localStorage" });
+    DSCacheFactory("staticCache", { storageMode: "localStorage" });
+
   });
 })
 
