@@ -3,16 +3,18 @@
 
 	angular.module('footyOnNetApp')
 			.controller('TeamDetailController', 
-						['$stateParams', 'footyApi', '$ionicPopup', TeamDetailController]);
+						['$stateParams', 'footyApi', '$ionicPopup', 'myTeamsService', TeamDetailController]);
 
-	function TeamDetailController($stateParams, footyApi, $ionicPopup){
+	function TeamDetailController($stateParams, footyApi, $ionicPopup, myTeamsService){
 		var vm = this;
+        var team = null
+        var leagueData = null;
 
 		vm.teamId = Number($stateParams.id);
 		
         footyApi.getLeagueData().then(function(data){
             // Query data
-             var team = _.chain(data.teams)
+            team = _.chain(data.teams)
                         .flatten("divisionTeams")
                         .find({ "id": vm.teamId })
                         .value();
@@ -41,9 +43,11 @@
                                .flatten("divisionStandings")
                                .find({ "teamId": vm.teamId })
                                .value();
+
+           leagueData = data.league;    
         });
 		
-        vm.following = false;
+        vm.following = myTeamsService.isFollowingTeam(vm.teamId.toString());
 
         vm.toggleFollow = function(){
 
@@ -55,10 +59,12 @@
                 confirmPopup.then(function(res) {
                     if(res) {
                         vm.following = !vm.following;
+                        myTeamsService.followTeam(vm.team);
                     }
                 });
             } else{
                 vm.following = !vm.following;
+                myTeamsService.followTeam({ id: team.id, name: team.name, leagueId: leagueData.id, leagueName: leagueData.name });
             }
         };
 

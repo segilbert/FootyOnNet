@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('eliteApp')
+    angular.module('footyOnNetApp')
             .factory('myTeamsService', ['DSCacheFactory', myTeamsService]);
 
     function myTeamsService(DSCacheFactory) {
