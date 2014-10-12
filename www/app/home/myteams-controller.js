@@ -10,7 +10,7 @@
 
 		vm.myTeams = myTeamsService.getFollowedTeams();
 
-		vm.goToTeam = function(tean){
+		vm.goToTeam = function(team){
 			footyApi.setLeagueId(team.leagueId);
 			$state.go("app.team-detail", { id: team.id });
 		};

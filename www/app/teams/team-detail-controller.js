@@ -59,7 +59,7 @@
                 confirmPopup.then(function(res) {
                     if(res) {
                         vm.following = !vm.following;
-                        myTeamsService.followTeam(vm.team);
+                        myTeamsService.unfollowTeam(team.id);
                     }
                 });
             } else{
