@@ -77,10 +77,14 @@
             return deferred.promise;
         }
 
-        function getLeagueData(){
+        function getLeagueData(forceRefresh){
             var deferred = $q.defer();
             var cacheKey = "leagueData-" + getLeagueId();
-            var leagueData = self.leagueDataCache.get(cacheKey);
+            var leagueData = null;
+
+            if(!forceRefresh){
+                leagueData = self.leagueDataCache.get(cacheKey);
+            };
 
             $ionicLoading.show({ template: "Loading..." })
 

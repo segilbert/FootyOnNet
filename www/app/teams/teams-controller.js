@@ -2,15 +2,21 @@
 	'use strict';
 
 	angular.module('footyOnNetApp')
-		   .controller('TeamsController', ['footyApi', TeamsController]);
+		   .controller('TeamsController', ['$scope', 'footyApi', TeamsController]);
 
-	function TeamsController(footyApi){
+	function TeamsController($scope, footyApi){
 		var vm = this;
 
-		footyApi.getLeagueData().then(function(data){
-			vm.teams = data.teams;	
-		});
-		
+		vm.loadList = function(forceRefresh){
+
+			footyApi.getLeagueData(forceRefresh).then(function(data){
+				vm.teams = data.teams;	
+			}).finally(function(){
+					$scope.$broadcast('scroll.refreshComplete');
+				});
+		};
+
+		vm.loadList(false);
 	};
 
 })();
