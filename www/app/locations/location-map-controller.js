@@ -1,8 +1,8 @@
 (function (){
 	'use strict';
-//'GoogleMapApi'.ns(),
+
 	angular.module('footyOnNetApp')
-               .controller('LocationMapController', ['$stateParams',  LocationMapController]);
+               .controller('LocationMapController', ['$stateParams', 'GoogleMapApi'.ns(), LocationMapController]);
 
 	function LocationMapController($stateParams, GoogleMapApi){
 		var vm = this;
