@@ -20,8 +20,16 @@ angular.module("footyOnNetApp", ["ionic", "angular-data.DSCacheFactory", "google
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+//.config(['GoogleMapApiProvider'.ns(), function($stateProvider, $urlRouterProvider, GoogleMapApi) {
+  .config(function($stateProvider, $urlRouterProvider) {
 
+  /*
+  GoogleMapApi.configure({
+      //    key: 'your api key',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+  });
+*/
   $stateProvider
 
     .state('home', {
