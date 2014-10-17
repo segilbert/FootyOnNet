@@ -25,7 +25,7 @@
 		vm.marker = {};
 
 		footyApi.getLeagueData().then(function(data){
-			vm.location = _find(data.locations, { id: vm.locationId});
+			vm.location = _.find(data.locations, { id: vm.locationId});
 
 			vm.marker = {
 				latitude: vm.location.latitude,
@@ -37,6 +37,10 @@
 			vm.map.center.latitude = vm.location.latitude;
 			vm.map.center.longitude = vm.location.longitude;
 		});
+
+		vm.locationClicked = function(marker){
+            window.location = "geo:" + marker.latitude + "," + marker.longitude + ";u=35";
+        };
 	};
 
 })();
