@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('footyOnNetApp')
-               .controller('LocationMapController', ['$stateParams', 'GoogleMapApi'.ns(), LocationMapController]);
+               .controller('LocationMapController', ['$stateParams', 'footyApi', 'GoogleMapApi'.ns(), LocationMapController]);
 
-	function LocationMapController($stateParams, GoogleMapApi){
+	function LocationMapController($stateParams, footyApi, GoogleMapApi){
 		var vm = this;
 
 		vm.locationId = Number($stateParams.id);
@@ -16,21 +16,27 @@
 		                    minZoom: 3
                 },
 				center: {
-							latitude: 51.219053, 
-							longitude: 4.404418 
+							latitude: 38.897677, 
+							longitude: -77.036530 
 						},
 				zoom: 12
 		};
 
 		vm.marker = {};
 
-		/*
-		GoogleMapApi.then(function(maps){
-			maps.visualRefresh = true;
-		});
-		*/
+		footyApi.getLeagueData().then(function(data){
+			vm.location = _find(data.locations, { id: vm.locationId});
 
-		console.log("map", vm.map);
+			vm.marker = {
+				latitude: vm.location.latitude,
+				longitude: vm.location.longitude,
+				title: vm.location.name + "</br>(Tap for directions)",
+				showWindow: true
+			};
+
+			vm.map.center.latitude = vm.location.latitude;
+			vm.map.center.longitude = vm.location.longitude;
+		});
 	};
 
 })();
